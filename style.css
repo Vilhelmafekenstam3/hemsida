@@ -666,6 +666,41 @@ footer {
 .quiz-title { font-size: 1.1rem; font-weight: 700; }
 .quiz-sub { font-size: 0.8rem; color: var(--muted); }
 
+.quiz-code-box {
+  background: #0a0a0a;
+  border: 1px solid #2a2a2a;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 1.25rem;
+}
+.qcb-bar {
+  background: #161616;
+  padding: 6px 12px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  border-bottom: 1px solid #222;
+}
+.qcb-dot {
+  width: 10px; height: 10px; border-radius: 50%;
+}
+.qcb-dot.r { background: #ff5f57; }
+.qcb-dot.y { background: #febc2e; }
+.qcb-dot.g { background: #28c840; }
+.qcb-label { font-size: 11px; color: #555; margin-left: 6px; font-family: monospace; }
+.qcb-code {
+  padding: 14px 16px;
+  font-size: 12px;
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  line-height: 1.7;
+  color: #ccc;
+  margin: 0;
+  overflow-x: auto;
+}
+.c-kw  { color: #c792ea; }
+.c-fn  { color: #82aaff; }
+.c-str { color: #c3e88d; }
+
 .quiz-progress-bar {
   background: #222; border-radius: 50px; height: 6px; margin-bottom: 0.4rem;
 }

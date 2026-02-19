@@ -240,9 +240,22 @@
           <div class="quiz-logo">VF</div>
           <div>
             <div class="quiz-title">Åtkomstkontroll</div>
-            <div class="quiz-sub">Svara rätt för att komma in</div>
+            <div class="quiz-sub">Nu ska jag visa att jag lyssnat och lärt mig</div>
           </div>
         </div>
+
+        <div class="quiz-code-box">
+          <div class="qcb-bar"><span class="qcb-dot r"></span><span class="qcb-dot y"></span><span class="qcb-dot g"></span><span class="qcb-label">app.js</span></div>
+          <pre class="qcb-code"><span class="c-kw">function</span> <span class="c-fn">trackEvent</span>(name, detail) {
+  events.<span class="c-fn">unshift</span>({ time, name, detail });
+  localStorage.<span class="c-fn">setItem</span>(<span class="c-str">'vf_events'</span>, events);
+}
+
+<span class="c-kw">await</span> <span class="c-fn">fetch</span>(<span class="c-str">'https://api.open-meteo.com/v1/forecast'</span>);
+
+chrome.notifications.<span class="c-fn">create</span>({ title: <span class="c-str">'BizReminder!'</span> });</pre>
+        </div>
+
         <div class="quiz-progress-bar"><div id="quizProgressFill"></div></div>
         <div class="quiz-progress-text"><span id="quizCurrent">1</span> / <span id="quizTotal">4</span></div>
 
