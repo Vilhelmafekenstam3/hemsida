@@ -230,6 +230,65 @@
     </div>
   </div>
 
+  <!-- QUIZ GATE -->
+  <div id="quizOverlay" class="quiz-overlay hidden">
+    <div class="quiz-popup">
+
+      <!-- QUIZ SCREEN -->
+      <div id="quizScreen">
+        <div class="quiz-header">
+          <div class="quiz-logo">VF</div>
+          <div>
+            <div class="quiz-title">Åtkomstkontroll</div>
+            <div class="quiz-sub">Svara rätt för att komma in</div>
+          </div>
+        </div>
+        <div class="quiz-progress-bar"><div id="quizProgressFill"></div></div>
+        <div class="quiz-progress-text"><span id="quizCurrent">1</span> / <span id="quizTotal">4</span></div>
+
+        <div id="questionBox">
+          <div class="question-text" id="questionText"></div>
+          <div class="options" id="optionsBox"></div>
+          <div id="quizFeedback" class="quiz-feedback"></div>
+        </div>
+      </div>
+
+      <!-- HOUSE LOADING SCREEN -->
+      <div id="houseScreen" class="hidden">
+        <div class="house-title">Bygger din ingång...</div>
+        <div class="house-wrap">
+          <div class="house" id="house">
+            <div class="h-chimney" id="hChimney"></div>
+            <div class="h-smoke" id="hSmoke">
+              <span></span><span></span><span></span>
+            </div>
+            <div class="h-roof" id="hRoof"></div>
+            <div class="h-wall" id="hWall">
+              <div class="h-window left" id="hWinL"></div>
+              <div class="h-window right" id="hWinR"></div>
+              <div class="h-door" id="hDoor">
+                <div class="h-knob"></div>
+              </div>
+            </div>
+            <div class="h-foundation" id="hFoundation"></div>
+            <div class="h-ground" id="hGround"></div>
+          </div>
+        </div>
+        <div class="house-progress-bar"><div id="houseProgressFill"></div></div>
+        <div class="house-status" id="houseStatus">Lägger grunden...</div>
+      </div>
+
+      <!-- WELCOME SCREEN -->
+      <div id="welcomeScreen" class="hidden">
+        <div class="welcome-emoji">🏠</div>
+        <div class="welcome-title">Välkommen in!</div>
+        <div class="welcome-sub">Du klarade alla frågor. Huset är byggt.</div>
+        <button id="enterBtn" class="enter-btn">Gå in på hemsidan →</button>
+      </div>
+
+    </div>
+  </div>
+
   <script src="app.js"></script>
 </body>
 </html>

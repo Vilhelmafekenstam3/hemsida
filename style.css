@@ -628,6 +628,232 @@ footer {
   font-style: italic;
 }
 
+/* ===== QUIZ GATE ===== */
+.quiz-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.92);
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(8px);
+  animation: overlayIn 0.4s ease;
+}
+.quiz-popup {
+  background: linear-gradient(135deg, #0d0d0d, #1a0040);
+  border: 2px solid var(--accent);
+  border-radius: 20px;
+  padding: 2.5rem;
+  max-width: 500px;
+  width: 92%;
+  animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 0 60px rgba(108,99,255,0.4);
+}
+.quiz-header {
+  display: flex; align-items: center; gap: 12px;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #222;
+}
+.quiz-logo {
+  width: 40px; height: 40px;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 900; font-size: 14px;
+}
+.quiz-title { font-size: 1.1rem; font-weight: 700; }
+.quiz-sub { font-size: 0.8rem; color: var(--muted); }
+
+.quiz-progress-bar {
+  background: #222; border-radius: 50px; height: 6px; margin-bottom: 0.4rem;
+}
+#quizProgressFill {
+  height: 100%; border-radius: 50px;
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+  transition: width 0.4s ease;
+  width: 25%;
+}
+.quiz-progress-text { font-size: 0.75rem; color: #555; margin-bottom: 1.5rem; }
+
+.question-text {
+  font-size: 1.1rem; font-weight: 600;
+  color: var(--text); margin-bottom: 1.25rem; line-height: 1.5;
+}
+.options { display: flex; flex-direction: column; gap: 0.6rem; }
+.opt-btn {
+  background: #161616;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 0.75rem 1rem;
+  color: var(--text);
+  font-size: 0.95rem;
+  cursor: pointer;
+  text-align: left;
+  transition: border-color 0.15s, background 0.15s;
+}
+.opt-btn:hover { border-color: var(--accent); background: rgba(108,99,255,0.08); }
+.opt-btn.correct { border-color: #4ade80; background: rgba(74,222,128,0.1); color: #4ade80; }
+.opt-btn.wrong   { border-color: #f87171; background: rgba(248,113,113,0.1); color: #f87171; }
+.opt-btn:disabled { cursor: default; }
+
+.quiz-feedback {
+  margin-top: 1rem; font-size: 0.9rem; min-height: 1.2rem;
+  font-weight: 600; text-align: center;
+}
+.quiz-feedback.ok  { color: #4ade80; }
+.quiz-feedback.err { color: #f87171; }
+
+/* ===== HOUSE ANIMATION ===== */
+.house-title {
+  text-align: center; font-size: 1.1rem; font-weight: 700;
+  margin-bottom: 1.5rem; color: var(--text);
+}
+.house-wrap {
+  display: flex; justify-content: center; align-items: flex-end;
+  height: 200px; margin-bottom: 1.5rem;
+}
+.house { position: relative; width: 180px; height: 180px; }
+
+/* Foundation */
+.h-foundation {
+  position: absolute; bottom: 20px; left: 10px;
+  width: 160px; height: 10px;
+  background: #888; border-radius: 2px;
+  transform: scaleX(0); transform-origin: left;
+  transition: transform 0.5s ease;
+}
+.h-foundation.show { transform: scaleX(1); }
+
+/* Ground */
+.h-ground {
+  position: absolute; bottom: 10px; left: 0;
+  width: 180px; height: 12px;
+  background: linear-gradient(#3a5a2a, #2a4a1a);
+  border-radius: 4px;
+  transform: scaleX(0); transform-origin: left;
+  transition: transform 0.5s ease 0.1s;
+}
+.h-ground.show { transform: scaleX(1); }
+
+/* Wall */
+.h-wall {
+  position: absolute; bottom: 30px; left: 20px;
+  width: 140px; height: 90px;
+  background: linear-gradient(180deg, #c8a882, #b8956a);
+  border: 2px solid #8a6a4a;
+  border-radius: 2px;
+  transform: scaleY(0); transform-origin: bottom;
+  transition: transform 0.6s ease;
+}
+.h-wall.show { transform: scaleY(1); }
+
+/* Roof */
+.h-roof {
+  position: absolute; bottom: 118px; left: 5px;
+  width: 0; height: 0;
+  border-left: 90px solid transparent;
+  border-right: 90px solid transparent;
+  border-bottom: 65px solid #8b3a2a;
+  opacity: 0;
+  transition: opacity 0.4s ease, transform 0.4s ease;
+  transform: translateY(-20px);
+}
+.h-roof.show { opacity: 1; transform: translateY(0); }
+
+/* Chimney */
+.h-chimney {
+  position: absolute; bottom: 163px; right: 38px;
+  width: 22px; height: 35px;
+  background: #6a2a1a;
+  border-radius: 2px 2px 0 0;
+  transform: scaleY(0); transform-origin: bottom;
+  transition: transform 0.4s ease;
+  z-index: 2;
+}
+.h-chimney.show { transform: scaleY(1); }
+
+/* Smoke */
+.h-smoke {
+  position: absolute; bottom: 196px; right: 40px;
+  display: flex; flex-direction: column; align-items: center; gap: 2px;
+  opacity: 0; transition: opacity 0.5s ease;
+}
+.h-smoke.show { opacity: 1; }
+.h-smoke span {
+  width: 8px; height: 8px;
+  background: rgba(200,200,200,0.6);
+  border-radius: 50%;
+  animation: smokeRise 2s ease infinite;
+}
+.h-smoke span:nth-child(2) { animation-delay: 0.6s; width: 6px; height: 6px; }
+.h-smoke span:nth-child(3) { animation-delay: 1.2s; width: 4px; height: 4px; }
+@keyframes smokeRise {
+  0%   { transform: translateY(0) scale(1); opacity: 0.6; }
+  100% { transform: translateY(-20px) scale(1.5); opacity: 0; }
+}
+
+/* Door */
+.h-door {
+  position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+  width: 32px; height: 48px;
+  background: linear-gradient(180deg, #5a3a1a, #3a2010);
+  border-radius: 4px 4px 0 0;
+  opacity: 0; transition: opacity 0.4s ease;
+}
+.h-door.show { opacity: 1; }
+.h-knob {
+  position: absolute; right: 5px; top: 50%;
+  width: 5px; height: 5px;
+  background: #f0c060; border-radius: 50%;
+}
+
+/* Windows */
+.h-window {
+  position: absolute; top: 18px;
+  width: 30px; height: 28px;
+  background: linear-gradient(135deg, #a8d4f5, #5aabf0);
+  border: 2px solid #4a6a8a;
+  border-radius: 2px;
+  opacity: 0; transition: opacity 0.4s ease;
+}
+.h-window::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.4) 0%, transparent 50%);
+}
+.h-window.left  { left: 12px; }
+.h-window.right { right: 12px; }
+.h-window.show  { opacity: 1; }
+
+/* House progress */
+.house-progress-bar {
+  background: #222; border-radius: 50px; height: 8px; margin-bottom: 0.75rem;
+}
+#houseProgressFill {
+  height: 100%; border-radius: 50px; width: 0%;
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+  transition: width 0.6s ease;
+}
+.house-status {
+  text-align: center; font-size: 0.85rem;
+  color: var(--muted); min-height: 1.2rem;
+}
+
+/* Welcome screen */
+.welcome-emoji { font-size: 4rem; text-align: center; margin-bottom: 1rem; animation: skiJump 1s ease infinite alternate; }
+.welcome-title { font-size: 2rem; font-weight: 900; text-align: center; color: var(--text); margin-bottom: 0.5rem; }
+.welcome-sub { text-align: center; color: var(--muted); margin-bottom: 2rem; }
+.enter-btn {
+  display: block; width: 100%;
+  padding: 1rem; border: none; border-radius: 12px;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  color: #fff; font-size: 1rem; font-weight: 700;
+  cursor: pointer; transition: opacity 0.2s;
+}
+.enter-btn:hover { opacity: 0.85; }
+
 /* ===== UTILS ===== */
 .hidden { display: none !important; }
 .success {

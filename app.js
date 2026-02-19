@@ -96,6 +96,161 @@ document.getElementById('skiClose').addEventListener('click', () => {
   trackEvent('ski_popup_closed', 'Användaren valde hemsida framför skidor');
 });
 
+// ===== QUIZ GATE =====
+const questions = [
+  {
+    q: "Vad är syftet med en lead-magnet på en hemsida?",
+    options: [
+      "Att sakta ner sidan",
+      "Att locka besökare att lämna sin e-post i utbyte mot något värdefullt",
+      "Att blockera annonser",
+      "Att spara lösenord"
+    ],
+    correct: 1
+  },
+  {
+    q: "Vilket externt API används på den här hemsidan för att hämta live-data?",
+    options: [
+      "Spotify API",
+      "Google Maps API",
+      "Open-Meteo (väder-API)",
+      "Twitter API"
+    ],
+    correct: 2
+  },
+  {
+    q: "Vad heter Chrome-tillägget vi byggde under kursen?",
+    options: [
+      "TaxTracker Pro",
+      "DeadlineAlert",
+      "BizReminder: Tax & Law Alerts",
+      "ChromeHelper"
+    ],
+    correct: 2
+  },
+  {
+    q: "Vad mäter event tracking på den här sidan?",
+    options: [
+      "Servertemperaturen",
+      "Användarinteraktioner — klick, scroll-djup, tid på sidan",
+      "Antalet bilder på sidan",
+      "DNS-svarstider"
+    ],
+    correct: 1
+  }
+];
+
+let currentQ = 0;
+let answered = false;
+
+function showQuestion() {
+  const q = questions[currentQ];
+  document.getElementById('questionText').textContent = q.q;
+  document.getElementById('quizCurrent').textContent = currentQ + 1;
+  document.getElementById('quizTotal').textContent = questions.length;
+  document.getElementById('quizProgressFill').style.width = ((currentQ / questions.length) * 100) + '%';
+  document.getElementById('quizFeedback').textContent = '';
+  document.getElementById('quizFeedback').className = 'quiz-feedback';
+
+  const box = document.getElementById('optionsBox');
+  box.innerHTML = '';
+  q.options.forEach((opt, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'opt-btn';
+    btn.textContent = opt;
+    btn.addEventListener('click', () => handleAnswer(i, btn));
+    box.appendChild(btn);
+  });
+  answered = false;
+}
+
+function handleAnswer(idx, btn) {
+  if (answered) return;
+  answered = true;
+  const q = questions[currentQ];
+  const allBtns = document.querySelectorAll('.opt-btn');
+  allBtns.forEach(b => b.disabled = true);
+
+  const fb = document.getElementById('quizFeedback');
+  if (idx === q.correct) {
+    btn.classList.add('correct');
+    fb.textContent = '✓ Rätt!';
+    fb.className = 'quiz-feedback ok';
+    trackEvent('quiz_correct', `Fråga ${currentQ + 1}`);
+    setTimeout(() => {
+      currentQ++;
+      if (currentQ < questions.length) {
+        showQuestion();
+      } else {
+        document.getElementById('quizProgressFill').style.width = '100%';
+        setTimeout(startHouseAnimation, 400);
+      }
+    }, 800);
+  } else {
+    btn.classList.add('wrong');
+    allBtns[q.correct].classList.add('correct');
+    fb.textContent = '✗ Fel! Försök igen om en sekund...';
+    fb.className = 'quiz-feedback err';
+    trackEvent('quiz_wrong', `Fråga ${currentQ + 1}`);
+    setTimeout(showQuestion, 1800);
+  }
+}
+
+// House building sequence
+function startHouseAnimation() {
+  document.getElementById('quizScreen').classList.add('hidden');
+  document.getElementById('houseScreen').classList.remove('hidden');
+
+  const steps = [
+    { el: 'hGround',     label: 'Lägger grunden...',     progress: 14 },
+    { el: 'hFoundation', label: 'Gjuter betong...',       progress: 28 },
+    { el: 'hWall',       label: 'Bygger väggar...',       progress: 45 },
+    { el: 'hRoof',       label: 'Lyfter taket...',        progress: 60 },
+    { el: 'hChimney',    label: 'Murar skorstenen...',    progress: 72 },
+    { el: 'hDoor',       label: 'Hänger dörren...',       progress: 82 },
+    { el: 'hWinL',       label: 'Sätter in fönster...',   progress: 88 },
+    { el: 'hWinR',       label: 'Sätter in fönster...',   progress: 93 },
+    { el: 'hSmoke',      label: 'Tänder brasan... 🔥',    progress: 100 }
+  ];
+
+  let i = 0;
+  function nextStep() {
+    if (i >= steps.length) {
+      setTimeout(showWelcome, 600);
+      return;
+    }
+    const s = steps[i++];
+    document.getElementById(s.el).classList.add('show');
+    document.getElementById('houseProgressFill').style.width = s.progress + '%';
+    document.getElementById('houseStatus').textContent = s.label;
+    setTimeout(nextStep, 550);
+  }
+  setTimeout(nextStep, 300);
+}
+
+function showWelcome() {
+  document.getElementById('houseScreen').classList.add('hidden');
+  document.getElementById('welcomeScreen').classList.remove('hidden');
+  trackEvent('quiz_completed', 'Alla frågor rätt — huset byggt!');
+}
+
+document.getElementById('enterBtn').addEventListener('click', () => {
+  const overlay = document.getElementById('quizOverlay');
+  overlay.style.animation = 'overlayIn 0.3s ease reverse forwards';
+  setTimeout(() => overlay.remove(), 300);
+  trackEvent('quiz_entered', 'Användaren kom in på hemsidan');
+});
+
+// Trigger quiz after ski popup closes
+const origSkiClose = document.getElementById('skiClose');
+origSkiClose.addEventListener('click', () => {
+  setTimeout(() => {
+    const quiz = document.getElementById('quizOverlay');
+    quiz.classList.remove('hidden');
+    showQuestion();
+  }, 400);
+}, { once: true });
+
 // ===== LEAD MAGNET FORM =====
 document.getElementById('leadForm').addEventListener('submit', (e) => {
   e.preventDefault();
