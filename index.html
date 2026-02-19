@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vilhelm Fekenstam</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-inner">
+      <span class="logo">VF</span>
+      <ul>
+        <li><a href="#om" data-track="nav_om">Om</a></li>
+        <li><a href="#api" data-track="nav_api">Live Data</a></li>
+        <li><a href="#whitepaper" data-track="nav_whitepaper">White-paper</a></li>
+        <li><a href="#plugin" data-track="nav_plugin">Plugin</a></li>
+        <li><a href="#kontakt" data-track="nav_kontakt">Kontakt</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- HERO / LEAD MAGNET -->
+  <section id="hero">
+    <div class="hero-content">
+      <h1>Vilhelm Fekenstam</h1>
+      <p class="subtitle">Webb &bull; Data &bull; Digital Tillväxt</p>
+      <p class="hero-desc">Jag hjälper dig att bygga smarta webbplatser som faktiskt växer — med lead-magnets, event tracking och API-driven data.</p>
+
+      <!-- LEAD MAGNET -->
+      <div class="lead-magnet" id="leadmagnet">
+        <h2>Gratis Guide: 5 steg till din första growth loop</h2>
+        <p>Fyll i din e-post och få guiden direkt i inkorgen.</p>
+        <form id="leadForm">
+          <input type="email" id="emailInput" placeholder="din@email.com" required />
+          <button type="submit" data-track="lead_submit">Skicka mig guiden</button>
+        </form>
+        <p id="leadSuccess" class="success hidden">Tack! Kolla din inbox.</p>
+        <p class="small-print">Inga spam. Avregistrera när som helst.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- OM -->
+  <section id="om">
+    <div class="container">
+      <h2>Om mig</h2>
+      <p>Jag är en webbutvecklare med intresse för tillväxt, data och användarupplevelse. Jag bygger sajter som inte bara ser bra ut — de <strong>arbetar</strong> för dig dygnet runt.</p>
+      <div class="skills">
+        <div class="skill-card">Lead Magnets</div>
+        <div class="skill-card">Event Tracking</div>
+        <div class="skill-card">API Integration</div>
+        <div class="skill-card">Growth Loops</div>
+        <div class="skill-card">Browser Plugins</div>
+        <div class="skill-card">Data Analys</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- API DATA SECTION -->
+  <section id="api">
+    <div class="container">
+      <h2>Live Väderdata via API</h2>
+      <p>Nedan hämtas realtidsdata från <strong>Open-Meteo API</strong> (gratis, ingen nyckel krävs) — ett exempel på hur man använder extern API-data på sin sajt.</p>
+      <div id="weather-widget">
+        <div id="weather-loading">Hämtar data...</div>
+        <div id="weather-data" class="hidden">
+          <div class="weather-grid">
+            <div class="weather-card">
+              <span class="weather-label">Temp nu (Stockholm)</span>
+              <span class="weather-value" id="temp">--</span>
+            </div>
+            <div class="weather-card">
+              <span class="weather-label">Vindhastighet</span>
+              <span class="weather-value" id="wind">--</span>
+            </div>
+            <div class="weather-card">
+              <span class="weather-label">Luftfuktighet</span>
+              <span class="weather-value" id="humidity">--</span>
+            </div>
+            <div class="weather-card">
+              <span class="weather-label">Sikt</span>
+              <span class="weather-value" id="visibility">--</span>
+            </div>
+          </div>
+          <p class="api-source">Källa: <a href="https://open-meteo.com" target="_blank">open-meteo.com</a></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHITE-PAPER -->
+  <section id="whitepaper">
+    <div class="container">
+      <h2>White-paper</h2>
+      <div class="wp-card">
+        <div class="wp-info">
+          <span class="wp-tag">Gratis nedladdning</span>
+          <h3>Growth Loops för småföretag 2025</h3>
+          <p>En djupdykning i hur moderna webbplatser bygger självförstärkande tillväxtloopar — från lead magnets till viral delning och retargeting.</p>
+          <ul>
+            <li>Vad är en growth loop?</li>
+            <li>3 beprövade loop-strategier</li>
+            <li>Hur du mäter och optimerar</li>
+            <li>Checklistor och mallar</li>
+          </ul>
+          <a href="whitepaper.pdf" class="btn-download" data-track="whitepaper_download" download>Ladda ner PDF</a>
+        </div>
+        <div class="wp-cover">
+          <div class="cover-placeholder">
+            <span>WHITE</span>
+            <span>PAPER</span>
+            <span class="cover-year">2025</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BROWSER PLUGIN -->
+  <section id="plugin">
+    <div class="container">
+      <h2>Browser Plugin</h2>
+      <p style="color:var(--muted);margin-bottom:2rem;">BizReminder är ett Chrome-tillägg som påminner dig om skatte- och bolagsdeadlines — direkt i webbläsaren.</p>
+      <div class="plugin-card">
+        <div class="plugin-preview">
+          <div class="browser-frame">
+            <div class="browser-bar">
+              <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+              <span class="browser-url">chrome://extensions</span>
+            </div>
+            <div class="popup-mock">
+              <div class="pm-header">
+                <div class="pm-logo">BR</div>
+                <div>
+                  <div class="pm-title">BizReminder</div>
+                  <div class="pm-sub">Tax &amp; Law Alerts</div>
+                </div>
+              </div>
+              <div class="pm-item urgent">
+                <div>
+                  <div class="pm-name">Individual Tax Filing</div>
+                  <div class="pm-date">April 15, 2025</div>
+                </div>
+                <span class="pm-badge urgent">Urgent</span>
+              </div>
+              <div class="pm-item warning">
+                <div>
+                  <div class="pm-name">Q2 Estimated Tax</div>
+                  <div class="pm-date">June 16, 2025</div>
+                </div>
+                <span class="pm-badge warning">Soon</span>
+              </div>
+              <div class="pm-btn">Send Test Notification</div>
+            </div>
+          </div>
+        </div>
+        <div class="plugin-info">
+          <span class="wp-tag">Chrome Extension</span>
+          <h3>BizReminder: Tax &amp; Law Alerts</h3>
+          <p>Missa aldrig en deadline igen. Tillägget kör i bakgrunden och skickar systemnotiser automatiskt.</p>
+          <ul>
+            <li>Systemnotiser via <code>chrome.notifications</code></li>
+            <li>Automatiska alarm med <code>chrome.alarms</code></li>
+            <li>Toggle för on/off direkt i popup</li>
+            <li>Länkar till IRS, Skatteverket &amp; Bolagsverket</li>
+          </ul>
+          <div class="plugin-steps">
+            <div class="step"><span class="step-num">1</span>Gå till <code>chrome://extensions</code></div>
+            <div class="step"><span class="step-num">2</span>Aktivera <em>Developer mode</em></div>
+            <div class="step"><span class="step-num">3</span>Klicka <em>Load unpacked</em> → välj mappen</div>
+          </div>
+          <a href="biz-reminder-extension/" class="btn-download" data-track="plugin_download" style="margin-top:1.5rem;display:inline-block;">Visa källkod</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EVENT TRACKING DASHBOARD -->
+  <section id="tracking-dashboard">
+    <div class="container">
+      <h2>Event Tracking (live demo)</h2>
+      <p>Alla klick och interaktioner på den här sidan spåras. Nedan ser du händelserna i realtid — ett exempel på hur event tracking fungerar.</p>
+      <div id="event-log">
+        <div class="event-log-header">
+          <span>Händelselogg</span>
+          <button id="clearLog" onclick="clearEventLog()">Rensa</button>
+        </div>
+        <ul id="eventList">
+          <li class="empty-log">Inga händelser ännu — interagera med sidan!</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- KONTAKT -->
+  <section id="kontakt">
+    <div class="container">
+      <h2>Kontakt</h2>
+      <p>Intresserad av att jobba tillsammans? Hör av dig!</p>
+      <form id="contactForm">
+        <input type="text" placeholder="Ditt namn" required />
+        <input type="email" placeholder="Din e-post" required />
+        <textarea placeholder="Ditt meddelande..." rows="4" required></textarea>
+        <button type="submit" data-track="contact_submit">Skicka meddelande</button>
+      </form>
+      <p id="contactSuccess" class="success hidden">Meddelande skickat! Jag hör av mig snart.</p>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Vilhelm Fekenstam &mdash; Byggd med HTML, CSS &amp; JS</p>
+  </footer>
+
+  <!-- SKI POPUP -->
+  <div id="skiOverlay" class="ski-overlay">
+    <div class="ski-popup">
+      <div class="ski-emoji">⛷️</div>
+      <div class="ski-woosh">WOOOOSH</div>
+      <h2 class="ski-headline">OPS!</h2>
+      <p class="ski-sub">VEM BEHÖVER EN HEMSIDA<br>NÄR DU KAN KÖPA</p>
+      <div class="ski-product">LÄNGDSKIDOR</div>
+      <div class="ski-discount">5% RABATT!!!!</div>
+      <div class="ski-code">KOD: <span>SKIPAPPA5</span></div>
+      <a href="https://www.sporthandlarn.se" target="_blank" class="ski-shop-btn" data-track="ski_shop_click">🛒 KÖPA SKIDOR PÅ SPORTHANDLARN.SE →</a>
+      <button id="skiClose" class="ski-btn">NEJ TACK JAG VILL HA EN HEMSIDA 😭</button>
+      <p class="ski-fine-print">* Rabatten gäller ej. Det finns inga skidor. Det finns bara HTML.</p>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
