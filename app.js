@@ -142,8 +142,11 @@ const questions = [
 
 let currentQ = 0;
 let answered = false;
+let autoAnswerTimeout = null;
 
 function showQuestion() {
+  if (autoAnswerTimeout) clearTimeout(autoAnswerTimeout);
+
   const q = questions[currentQ];
   document.getElementById('questionText').textContent = q.q;
   document.getElementById('quizCurrent').textContent = currentQ + 1;
@@ -158,10 +161,24 @@ function showQuestion() {
     const btn = document.createElement('button');
     btn.className = 'opt-btn';
     btn.textContent = opt;
-    btn.addEventListener('click', () => handleAnswer(i, btn));
+    btn.addEventListener('click', () => {
+      if (autoAnswerTimeout) clearTimeout(autoAnswerTimeout);
+      handleAnswer(i, btn);
+    });
     box.appendChild(btn);
   });
   answered = false;
+
+  // Auto-answer with animated cursor after delay
+  const correctIdx = q.correct;
+  autoAnswerTimeout = setTimeout(() => {
+    if (!answered) {
+      const btns = document.querySelectorAll('.opt-btn');
+      if (btns[correctIdx]) {
+        animateCursorTo(btns[correctIdx], () => handleAnswer(correctIdx, btns[correctIdx]));
+      }
+    }
+  }, 1800);
 }
 
 function handleAnswer(idx, btn) {
@@ -196,6 +213,93 @@ function handleAnswer(idx, btn) {
   }
 }
 
+// ===== AUTO CURSOR =====
+function initCursor() {
+  const cursor = document.getElementById('autoCursor');
+  const popup = document.querySelector('.quiz-popup');
+  if (popup) {
+    const rect = popup.getBoundingClientRect();
+    cursor.style.left = (rect.left + 40) + 'px';
+    cursor.style.top = (rect.top + 120) + 'px';
+  }
+}
+
+function animateCursorTo(targetEl, callback) {
+  const cursor = document.getElementById('autoCursor');
+  const rect = targetEl.getBoundingClientRect();
+  cursor.classList.add('visible');
+  cursor.style.left = (rect.left + 16) + 'px';
+  cursor.style.top = (rect.top + rect.height / 2 - 6) + 'px';
+  setTimeout(() => {
+    cursor.classList.add('clicking');
+    setTimeout(() => {
+      cursor.classList.remove('clicking');
+      if (callback) callback();
+    }, 220);
+  }, 800);
+}
+
+function hideCursor() {
+  document.getElementById('autoCursor').classList.remove('visible');
+}
+
+// ===== LEARNINGS DATA =====
+const learningItems = [
+  {
+    icon: '🎯',
+    title: 'Lead Magnets',
+    desc: 'Att erbjuda något värdefullt (guide, checklista) i utbyte mot en e-postadress — grunden i en growth loop.'
+  },
+  {
+    icon: '🌐',
+    title: 'API Integration',
+    desc: 'Hur man hämtar live-data från Open-Meteo och visar det dynamiskt på hemsidan utan en enda API-nyckel.'
+  },
+  {
+    icon: '🔌',
+    title: 'Chrome Extensions',
+    desc: 'Att bygga BizReminder — ett tillägg med chrome.notifications och chrome.alarms för automatiska deadline-påminnelser.'
+  },
+  {
+    icon: '📊',
+    title: 'Event Tracking',
+    desc: 'Hur man mäter klick, scroll-djup och tid på sidan för att förstå hur besökare faktiskt beter sig.'
+  }
+];
+
+function showLearnings() {
+  document.getElementById('houseScreen').classList.add('hidden');
+  document.getElementById('welcomeScreen').classList.remove('hidden');
+  hideCursor();
+  trackEvent('quiz_completed', 'Alla frågor rätt — huset byggt!');
+
+  const list = document.getElementById('learningsList');
+  list.innerHTML = '';
+  const enterBtn = document.getElementById('enterBtn');
+  enterBtn.style.opacity = '0';
+  enterBtn.style.pointerEvents = 'none';
+
+  learningItems.forEach((item, i) => {
+    const card = document.createElement('div');
+    card.className = 'learning-card';
+    card.innerHTML = `
+      <span class="learning-icon">${item.icon}</span>
+      <div>
+        <div class="learning-title">${item.title}</div>
+        <div class="learning-desc">${item.desc}</div>
+      </div>
+    `;
+    list.appendChild(card);
+    setTimeout(() => card.classList.add('show'), 250 + i * 600);
+  });
+
+  setTimeout(() => {
+    enterBtn.style.transition = 'opacity 0.5s ease';
+    enterBtn.style.opacity = '1';
+    enterBtn.style.pointerEvents = 'auto';
+  }, 250 + learningItems.length * 600 + 400);
+}
+
 // House building sequence
 function startHouseAnimation() {
   document.getElementById('quizScreen').classList.add('hidden');
@@ -216,7 +320,7 @@ function startHouseAnimation() {
   let i = 0;
   function nextStep() {
     if (i >= steps.length) {
-      setTimeout(showWelcome, 600);
+      setTimeout(showLearnings, 600);
       return;
     }
     const s = steps[i++];
@@ -247,6 +351,7 @@ origSkiClose.addEventListener('click', () => {
   setTimeout(() => {
     const quiz = document.getElementById('quizOverlay');
     quiz.classList.remove('hidden');
+    initCursor();
     showQuestion();
   }, 400);
 }, { once: true });

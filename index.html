@@ -279,15 +279,25 @@
         <div class="house-status" id="houseStatus">Lägger grunden...</div>
       </div>
 
-      <!-- WELCOME SCREEN -->
+      <!-- LEARNINGS / WELCOME SCREEN -->
       <div id="welcomeScreen" class="hidden">
-        <div class="welcome-emoji">🏠</div>
-        <div class="welcome-title">Välkommen in!</div>
-        <div class="welcome-sub">Du klarade alla frågor. Huset är byggt.</div>
-        <button id="enterBtn" class="enter-btn">Gå in på hemsidan →</button>
+        <div class="learnings-header">
+          <div class="learnings-emoji">🎓</div>
+          <div class="learnings-title">Vad jag lärt mig</div>
+          <div class="learnings-sub">Kursen i korthet — allt jag byggt och lärt mig</div>
+        </div>
+        <div id="learningsList" class="learnings-list"></div>
+        <button id="enterBtn" class="enter-btn learnings-enter-btn">Gå in på hemsidan →</button>
       </div>
 
     </div>
+  </div>
+
+  <!-- AUTO CURSOR -->
+  <div id="autoCursor" class="auto-cursor">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+      <path d="M5 2L5 19L9.5 14.5L12.5 21L14.5 20L11.5 13.5L18 13.5Z" fill="white" stroke="#222" stroke-width="1.5" stroke-linejoin="round"/>
+    </svg>
   </div>
 
   <script src="app.js"></script>
