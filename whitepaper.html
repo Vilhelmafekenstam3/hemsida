@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>White Paper — Vilhelm Fekenstam</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0d0d0d;
+      --surface: #161616;
+      --surface2: #1e1e1e;
+      --accent: #6c63ff;
+      --text: #e8e8e8;
+      --muted: #999;
+      --border: #2a2a2a;
+      --font: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font);
+      line-height: 1.8;
+      font-size: 16px;
+    }
+
+    .page {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 4rem 2rem 6rem;
+    }
+
+    /* COVER */
+    .cover {
+      text-align: center;
+      padding: 5rem 2rem 4rem;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 4rem;
+    }
+    .cover-tag {
+      display: inline-block;
+      background: var(--accent);
+      color: #fff;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.3rem 1rem;
+      border-radius: 100px;
+      margin-bottom: 2rem;
+    }
+    .cover h1 {
+      font-size: clamp(1.8rem, 5vw, 2.8rem);
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, #fff 0%, #6c63ff 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .cover-sub {
+      color: var(--muted);
+      font-size: 1.05rem;
+      margin-bottom: 2.5rem;
+    }
+    .cover-meta {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+    .cover-meta span { display: flex; align-items: center; gap: 0.4rem; }
+
+    /* SECTIONS */
+    section { margin-bottom: 3.5rem; }
+
+    h2 {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    p { color: var(--muted); margin-bottom: 1rem; }
+    p strong { color: var(--text); }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin-bottom: 1rem;
+    }
+    ul li {
+      color: var(--muted);
+      padding: 0.4rem 0 0.4rem 1.5rem;
+      position: relative;
+    }
+    ul li::before {
+      content: '→';
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+    }
+
+    /* HIGHLIGHT BOX */
+    .highlight {
+      background: var(--surface);
+      border-left: 3px solid var(--accent);
+      border-radius: 0 8px 8px 0;
+      padding: 1.2rem 1.5rem;
+      margin: 1.5rem 0;
+    }
+    .highlight p { margin: 0; }
+
+    /* TECH GRID */
+    .tech-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+    .tech-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1rem 1.2rem;
+    }
+    .tech-card .tc-name {
+      font-weight: 700;
+      color: var(--text);
+      font-size: 0.95rem;
+      margin-bottom: 0.3rem;
+    }
+    .tech-card .tc-desc {
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+
+    /* BACK LINK */
+    .back {
+      display: inline-block;
+      margin-bottom: 2rem;
+      color: var(--accent);
+      font-size: 0.9rem;
+      text-decoration: none;
+    }
+    .back:hover { text-decoration: underline; }
+
+    /* FOOTER */
+    footer {
+      margin-top: 5rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <a class="back" href="index.html">← Tillbaka till startsidan</a>
+
+    <!-- COVER -->
+    <div class="cover">
+      <div class="cover-tag">White Paper · 2025</div>
+      <h1>Att bygga en modern webbnärvaro med data i centrum</h1>
+      <p class="cover-sub">En sammanfattning av projektet bakom vilhelmafekenstam3.github.io</p>
+      <div class="cover-meta">
+        <span>Vilhelm Fekenstam</span>
+        <span>2025</span>
+        <span>Webb · Data · Digital Tillväxt</span>
+      </div>
+    </div>
+
+    <!-- BAKGRUND -->
+    <section>
+      <h2>Bakgrund</h2>
+      <p>Projektet handlar om att bygga en personlig portföljsajt som inte bara presenterar mig som webbutvecklare — utan också <strong>demonstrerar de tekniker och metoder</strong> jag arbetar med i praktiken. Sajten är i sig ett levande exempel på vad den handlar om.</p>
+      <p>Allt är byggt från grunden med HTML, CSS och JavaScript, utan ramverk. Koden är öppen och publicerad via GitHub Pages.</p>
+    </section>
+
+    <!-- VAD SOM BYGGDES -->
+    <section>
+      <h2>Vad som byggdes</h2>
+      <p>Sajten kombinerar flera tekniker i ett och samma projekt:</p>
+      <ul>
+        <li><strong>Portföljsida</strong> — presentation av kompetenser och projekt</li>
+        <li><strong>Live API-data</strong> — realtidsväder från Open-Meteo direkt på sidan</li>
+        <li><strong>Lead magnet</strong> — e-postformulär kopplat till lokal lagring</li>
+        <li><strong>Event tracking-dashboard</strong> — alla klick och interaktioner loggas synligt</li>
+        <li><strong>Browser extension</strong> — ett Chrome-tillägg (BizReminder) som visar deadlines</li>
+        <li><strong>Signup-sektion</strong> — konverteringsinriktad CTA-ruta</li>
+        <li><strong>Kontaktformulär</strong> — med bekräftelsemeddelandeflöde</li>
+      </ul>
+    </section>
+
+    <!-- ANALYTICS & TRACKING -->
+    <section>
+      <h2>Analytics och event tracking</h2>
+      <p>En central del av projektet är att mäta hur besökare faktiskt interagerar med sajten. Det uppnåddes genom att koppla ihop tre lager:</p>
+
+      <div class="highlight">
+        <p><strong>Google Tag Manager (GTM)</strong> hanterar alla taggar centralt utan att behöva röra koden vid varje förändring.</p>
+      </div>
+      <div class="highlight">
+        <p><strong>Google Analytics 4 (GA4)</strong> tar emot händelsedata och gör den analyserbar — i realtid och historiskt.</p>
+      </div>
+      <div class="highlight">
+        <p><strong>Anpassad JavaScript-tracking</strong> skickar ett <code>button_click</code>-event till GA4 vid varje knapptryckning, med parametrarna: knappnamn, knapptext, sidsektion och URL.</p>
+      </div>
+
+      <p>Resultatet är att det går att se exakt vilka knappar som klickas, var på sidan besökaren befinner sig och vad som leder till konverteringar — direkt i GA4 Realtid.</p>
+    </section>
+
+    <!-- TEKNIKER -->
+    <section>
+      <h2>Tekniker som användes</h2>
+      <div class="tech-grid">
+        <div class="tech-card">
+          <div class="tc-name">HTML / CSS / JS</div>
+          <div class="tc-desc">Hela sajten byggd utan ramverk — ren webbstandard</div>
+        </div>
+        <div class="tech-card">
+          <div class="tc-name">Google Analytics 4</div>
+          <div class="tc-desc">Händelsespårning med anpassade parametrar</div>
+        </div>
+        <div class="tech-card">
+          <div class="tc-name">Google Tag Manager</div>
+          <div class="tc-desc">Tagghantering utan koddriftsättning</div>
+        </div>
+        <div class="tech-card">
+          <div class="tc-name">Open-Meteo API</div>
+          <div class="tc-desc">Gratis väder-API, ingen nyckel krävs</div>
+        </div>
+        <div class="tech-card">
+          <div class="tc-name">GitHub Pages</div>
+          <div class="tc-desc">Gratis hosting direkt från Git-repositoryt</div>
+        </div>
+        <div class="tech-card">
+          <div class="tc-name">Chrome Extensions API</div>
+          <div class="tc-desc">Notiser och alarm via chrome.notifications</div>
+        </div>
+        <div class="tech-card">
+          <div class="tc-name">localStorage</div>
+          <div class="tc-desc">Klientlagring av leads och händelselogg</div>
+        </div>
+        <div class="tech-card">
+          <div class="tc-name">Claude Code</div>
+          <div class="tc-desc">AI-assisterad utveckling via CLI</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- LÄRDOMAR -->
+    <section>
+      <h2>Vad projektet visar</h2>
+      <p>Det viktigaste projektet demonstrerar är att en enkel statisk sajt kan vara <strong>professionellt uppsatt och datadrivet</strong> utan en stor teknisk apparat bakom sig. Genom att kombinera öppna API:er, Googles gratisverktyg och välskriven JavaScript går det att bygga något som ser ut och fungerar som ett riktigt marknadsföringsverktyg.</p>
+      <p>Att spåra klick, fånga leads och presentera live-data är tekniker som annars förknippas med stora plattformar — men som i praktiken är tillgängliga för vem som helst med grundläggande webbutvecklingskunskaper.</p>
+    </section>
+
+    <footer>
+      &copy; 2025 Vilhelm Fekenstam — vilhelmafekenstam3.github.io
+    </footer>
+  </div>
+</body>
+</html>
