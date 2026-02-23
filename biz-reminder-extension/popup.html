@@ -1,208 +1,36 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8" />
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      width: 320px;
-      font-family: 'Segoe UI', system-ui, sans-serif;
-      background: #0d0d0d;
-      color: #e8e8e8;
-      padding: 16px;
-    }
-    .header {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 16px;
-      border-bottom: 1px solid #222;
-      padding-bottom: 12px;
-    }
-    .logo {
-      width: 32px; height: 32px;
-      background: linear-gradient(135deg, #6c63ff, #ff6584);
-      border-radius: 8px;
-      display: flex; align-items: center; justify-content: center;
-      font-weight: 900; font-size: 14px;
-    }
-    h2 { font-size: 15px; font-weight: 700; }
-    .subtitle { font-size: 11px; color: #666; }
-
-    .section-title {
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: #555;
-      margin-bottom: 8px;
-      font-weight: 600;
-    }
-
-    .deadline-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
-
-    .deadline-card {
-      background: #161616;
-      border-radius: 8px;
-      padding: 10px 12px;
-      border-left: 4px solid #6c63ff;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .deadline-card.urgent { border-left-color: #ff6584; }
-    .deadline-card.warning { border-left-color: #f59e0b; }
-
-    .deadline-info { flex: 1; }
-    .deadline-name { font-size: 12px; font-weight: 600; margin-bottom: 2px; }
-    .deadline-date { font-size: 11px; color: #888; }
-
-    .badge {
-      font-size: 10px;
-      padding: 2px 8px;
-      border-radius: 50px;
-      font-weight: 600;
-      background: rgba(108,99,255,0.15);
-      color: #6c63ff;
-    }
-    .badge.urgent { background: rgba(255,101,132,0.15); color: #ff6584; }
-    .badge.warning { background: rgba(245,158,11,0.15); color: #f59e0b; }
-
-    .auto-section {
-      background: #161616;
-      border-radius: 8px;
-      padding: 10px 12px;
-      margin-bottom: 16px;
-      font-size: 12px;
-      color: #888;
-    }
-    .auto-section strong { color: #e8e8e8; display: block; margin-bottom: 4px; }
-
-    .toggle-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-top: 8px;
-    }
-    .toggle {
-      position: relative;
-      width: 36px; height: 20px;
-    }
-    .toggle input { opacity: 0; width: 0; height: 0; }
-    .slider {
-      position: absolute;
-      inset: 0;
-      background: #333;
-      border-radius: 20px;
-      cursor: pointer;
-      transition: background 0.2s;
-    }
-    .slider:before {
-      content: '';
-      position: absolute;
-      width: 14px; height: 14px;
-      left: 3px; top: 3px;
-      background: white;
-      border-radius: 50%;
-      transition: transform 0.2s;
-    }
-    input:checked + .slider { background: #6c63ff; }
-    input:checked + .slider:before { transform: translateX(16px); }
-
-    .btn {
-      width: 100%;
-      padding: 9px;
-      border-radius: 8px;
-      border: none;
-      background: linear-gradient(135deg, #6c63ff, #ff6584);
-      color: white;
-      font-weight: 600;
-      font-size: 13px;
-      cursor: pointer;
-      margin-bottom: 12px;
-      transition: opacity 0.2s;
-    }
-    .btn:hover { opacity: 0.85; }
-
-    .links { font-size: 11px; color: #555; }
-    .links a {
-      color: #6c63ff;
-      text-decoration: none;
-      display: block;
-      margin-bottom: 4px;
-    }
-    .links a:hover { text-decoration: underline; }
-
-    #statusMsg {
-      font-size: 11px;
-      color: #4ade80;
-      text-align: center;
-      min-height: 16px;
-      margin-bottom: 8px;
-    }
+    body { width: 300px; font-family: sans-serif; padding: 15px; background: #f4f7f6; }
+    h2 { color: #2c3e50; font-size: 18px; margin-top: 0; }
+    .date-card { background: white; padding: 10px; border-radius: 8px; margin-bottom: 10px; border-left: 5px solid #e74c3c; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+    .date-card hb { display: block; font-weight: bold; }
+    .btn { background: #3498db; color: white; border: none; padding: 10px; width: 100%; border-radius: 5px; cursor: pointer; }
+    .btn:hover { background: #2980b9; }
+    .links { margin-top: 15px; font-size: 12px; }
+    a { color: #3498db; text-decoration: none; }
   </style>
 </head>
 <body>
+  <h2>Upcoming Deadlines</h2>
 
-  <div class="header">
-    <div class="logo">BR</div>
-    <div>
-      <h2>BizReminder</h2>
-      <div class="subtitle">Tax &amp; Law Alerts</div>
-    </div>
+  <div class="date-card">
+    <hb>April 15, 2024</hb>
+    <span>Individual Tax Filing Deadline</span>
   </div>
 
-  <div class="section-title">Upcoming Deadlines</div>
-  <div class="deadline-list">
-    <div class="deadline-card urgent">
-      <div class="deadline-info">
-        <div class="deadline-name">Individual Tax Filing</div>
-        <div class="deadline-date">April 15, 2025</div>
-      </div>
-      <span class="badge urgent">Urgent</span>
-    </div>
-    <div class="deadline-card warning">
-      <div class="deadline-info">
-        <div class="deadline-name">Q2 Estimated Tax Payment</div>
-        <div class="deadline-date">June 16, 2025</div>
-      </div>
-      <span class="badge warning">Soon</span>
-    </div>
-    <div class="deadline-card">
-      <div class="deadline-info">
-        <div class="deadline-name">Q3 Estimated Tax Payment</div>
-        <div class="deadline-date">September 15, 2025</div>
-      </div>
-      <span class="badge">Upcoming</span>
-    </div>
-    <div class="deadline-card">
-      <div class="deadline-info">
-        <div class="deadline-name">Corporate Tax Filing</div>
-        <div class="deadline-date">March 15, 2025</div>
-      </div>
-      <span class="badge">Annual</span>
-    </div>
+  <div class="date-card" style="border-left-color: #f1c40f;">
+    <hb>June 17, 2024</hb>
+    <span>Q2 Estimated Tax Payment</span>
   </div>
 
-  <div class="auto-section">
-    <strong>Auto-remind me 7 days before</strong>
-    <div class="toggle-row">
-      <span>Enable automatic alerts</span>
-      <label class="toggle">
-        <input type="checkbox" id="autoToggle" checked />
-        <span class="slider"></span>
-      </label>
-    </div>
-  </div>
-
-  <div id="statusMsg"></div>
   <button id="notifyBtn" class="btn">Send Test Notification</button>
 
   <div class="links">
-    <strong style="color:#555; display:block; margin-bottom:6px;">Resources</strong>
-    <a href="https://www.irs.gov" target="_blank">→ IRS Official Site</a>
+    <strong>Resources:</strong><br>
+    <a href="https://www.irs.gov" target="_blank">→ Visit IRS Official Site</a><br>
     <a href="https://www.sba.gov" target="_blank">→ Small Business Administration</a>
-    <a href="https://www.bolagsverket.se" target="_blank">→ Bolagsverket (Sverige)</a>
-    <a href="https://www.skatteverket.se" target="_blank">→ Skatteverket</a>
   </div>
 
   <script src="popup.js"></script>
