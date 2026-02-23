@@ -470,6 +470,48 @@ footer {
 
 
 
+/* ===== CHATGPT SIGNUP ===== */
+#chatgpt-signup { background: var(--surface); }
+.signup-box {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  border: 1px solid var(--accent);
+  border-radius: var(--radius);
+  padding: 2.5rem;
+  max-width: 560px;
+  margin: 0 auto;
+  text-align: center;
+}
+.signup-box h2 {
+  font-size: 1.4rem;
+  margin-bottom: 0.75rem;
+  color: var(--text);
+}
+.signup-box p { color: var(--muted); font-size: 0.95rem; margin-bottom: 1.2rem; }
+.signup-box form { display: flex; gap: 0.5rem; }
+.signup-box input {
+  flex: 1;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--surface2);
+  color: var(--text);
+  font-size: 0.95rem;
+}
+.signup-box input:focus { outline: 2px solid var(--accent); border-color: transparent; }
+.signup-box button {
+  padding: 0.75rem 1.25rem;
+  border-radius: 8px;
+  border: none;
+  background: var(--accent);
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s;
+  white-space: nowrap;
+}
+.signup-box button:hover { opacity: 0.85; }
+@media (max-width: 640px) { .signup-box form { flex-direction: column; } }
+
 /* ===== UTILS ===== */
 .hidden { display: none !important; }
 .success {

@@ -125,6 +125,18 @@ document.getElementById('leadForm').addEventListener('submit', (e) => {
   document.getElementById('leadSuccess').classList.remove('hidden');
 });
 
+// ===== CHATGPT SIGNUP FORM =====
+document.getElementById('chatgptForm').addEventListener('submit', (e) => {
+  e.preventDefault();
+  const email = document.getElementById('chatgptEmail').value;
+  trackEvent('chatgpt_signup', email);
+  const leads = JSON.parse(localStorage.getItem('vf_leads') || '[]');
+  leads.push({ email, source: 'chatgpt_signup', ts: new Date().toISOString() });
+  localStorage.setItem('vf_leads', JSON.stringify(leads));
+  document.getElementById('chatgptForm').classList.add('hidden');
+  document.getElementById('chatgptSuccess').classList.remove('hidden');
+});
+
 // ===== CONTACT FORM =====
 document.getElementById('contactForm').addEventListener('submit', (e) => {
   e.preventDefault();
