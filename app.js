@@ -34,13 +34,43 @@ function clearEventLog() {
   trackEvent('log_cleared', 'Händelseloggen rensades');
 }
 
-// Track all [data-track] clicks
+// ===== GA4 BUTTON TRACKING =====
+function sendGA4Event(eventName, params) {
+  if (typeof gtag === 'function') {
+    gtag('event', eventName, params);
+  }
+}
+
+function getSection(el) {
+  const section = el.closest('section');
+  if (section) return section.id || 'section';
+  if (el.closest('nav')) return 'nav';
+  if (el.closest('footer')) return 'footer';
+  return 'other';
+}
+
+// Track ALL button + link clicks → GA4 + event log
 document.addEventListener('click', (e) => {
-  const el = e.target.closest('[data-track]');
-  if (el) {
-    const eventName = el.getAttribute('data-track');
-    const label = el.innerText.trim().substring(0, 40);
-    trackEvent('click', `[${eventName}] "${label}"`);
+  const el = e.target.closest('button, a[data-track], a.btn-download');
+  if (!el) return;
+
+  const trackId   = el.getAttribute('data-track') || el.id || 'unnamed';
+  const btnText   = el.innerText.trim().substring(0, 100);
+  const section   = getSection(el);
+  const href      = el.getAttribute('href') || '';
+
+  // Send to GA4
+  sendGA4Event('button_click', {
+    button_id:      trackId,
+    button_text:    btnText,
+    page_section:   section,
+    link_url:       href,
+    page_location:  window.location.href
+  });
+
+  // Also log to on-page event log
+  if (el.hasAttribute('data-track')) {
+    trackEvent('click', `[${trackId}] "${btnText}"`);
   }
 });
 
