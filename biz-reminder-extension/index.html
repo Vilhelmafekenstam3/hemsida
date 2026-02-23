@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BizReminder — Chrome Extension</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0d0d0d;
+      --surface: #161616;
+      --surface2: #1e1e1e;
+      --accent: #6c63ff;
+      --text: #e8e8e8;
+      --muted: #999;
+      --border: #2a2a2a;
+      --font: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font);
+      line-height: 1.7;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 3rem 1.5rem 5rem;
+    }
+    .back {
+      align-self: flex-start;
+      max-width: 900px;
+      width: 100%;
+      margin-bottom: 2rem;
+      color: var(--accent);
+      font-size: 0.9rem;
+      text-decoration: none;
+    }
+    .back:hover { text-decoration: underline; }
+
+    .page { max-width: 900px; width: 100%; }
+
+    h1 {
+      font-size: 2rem;
+      font-weight: 800;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(135deg, #fff 0%, #6c63ff 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .tag {
+      display: inline-block;
+      background: var(--accent);
+      color: #fff;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.25rem 0.8rem;
+      border-radius: 100px;
+      margin-bottom: 1.5rem;
+    }
+    .desc { color: var(--muted); max-width: 600px; margin-bottom: 3rem; }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 340px 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+    @media (max-width: 700px) { .layout { grid-template-columns: 1fr; } }
+
+    /* POPUP PREVIEW FRAME */
+    .popup-frame {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .browser-bar {
+      background: #1a1a1a;
+      padding: 8px 12px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      border-bottom: 1px solid var(--border);
+    }
+    .dot { width: 10px; height: 10px; border-radius: 50%; background: #333; display: inline-block; }
+    .popup-iframe {
+      width: 100%;
+      height: 520px;
+      border: none;
+      display: block;
+    }
+
+    /* INFO PANEL */
+    .info h2 {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 1rem;
+    }
+    .info ul {
+      list-style: none;
+      padding: 0;
+      margin-bottom: 2rem;
+    }
+    .info ul li {
+      color: var(--muted);
+      padding: 0.4rem 0 0.4rem 1.5rem;
+      position: relative;
+      font-size: 0.95rem;
+    }
+    .info ul li::before { content: '→'; position: absolute; left: 0; color: var(--accent); }
+
+    .steps { margin-bottom: 2rem; }
+    .step {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+    .step-num {
+      background: var(--accent);
+      color: #fff;
+      width: 26px; height: 26px;
+      border-radius: 50%;
+      font-size: 0.8rem;
+      font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .step-text { color: var(--muted); font-size: 0.9rem; }
+    .step-text strong { color: var(--text); display: block; margin-bottom: 2px; }
+
+    code {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      padding: 0.1rem 0.4rem;
+      border-radius: 4px;
+      font-size: 0.85rem;
+      color: var(--accent);
+    }
+
+    .files {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1rem 1.2rem;
+    }
+    .files h3 { font-size: 0.85rem; color: var(--muted); margin-bottom: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; }
+    .file-item {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.35rem 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.88rem;
+    }
+    .file-item:last-child { border-bottom: none; }
+    .file-name { color: var(--text); font-weight: 500; }
+    .file-desc { color: var(--muted); font-size: 0.82rem; }
+  </style>
+</head>
+<body>
+  <a class="back" href="../index.html">← Tillbaka till startsidan</a>
+
+  <div class="page">
+    <div class="tag">Chrome Extension</div>
+    <h1>BizReminder</h1>
+    <p class="desc">Ett Chrome-tillägg som påminner dig om skatte- och bolagsdeadlines — med systemnotiser direkt i webbläsaren.</p>
+
+    <div class="layout">
+      <!-- LIVE POPUP PREVIEW -->
+      <div>
+        <p style="color:var(--muted);font-size:0.82rem;margin-bottom:0.75rem;">Förhandsgranskning av popup</p>
+        <div class="popup-frame">
+          <div class="browser-bar">
+            <span class="dot" style="background:#ff5f57"></span>
+            <span class="dot" style="background:#febc2e"></span>
+            <span class="dot" style="background:#28c840"></span>
+          </div>
+          <iframe src="popup.html" class="popup-iframe" title="BizReminder popup preview"></iframe>
+        </div>
+      </div>
+
+      <!-- INFO -->
+      <div class="info">
+        <h2>Funktioner</h2>
+        <ul>
+          <li>Systemnotiser via <code>chrome.notifications</code></li>
+          <li>Automatiska alarm med <code>chrome.alarms</code></li>
+          <li>On/off-toggle med sparat läge</li>
+          <li>Länkar till IRS, Skatteverket &amp; Bolagsverket</li>
+          <li>Manifest V3 — modern extension-standard</li>
+        </ul>
+
+        <h2>Installera lokalt</h2>
+        <div class="steps">
+          <div class="step">
+            <span class="step-num">1</span>
+            <div class="step-text">
+              <strong>Ladda ner filerna</strong>
+              Klona eller ladda ner detta repo
+            </div>
+          </div>
+          <div class="step">
+            <span class="step-num">2</span>
+            <div class="step-text">
+              <strong>Öppna Chrome</strong>
+              Gå till <code>chrome://extensions</code>
+            </div>
+          </div>
+          <div class="step">
+            <span class="step-num">3</span>
+            <div class="step-text">
+              <strong>Aktivera Developer mode</strong>
+              Växeln uppe till höger
+            </div>
+          </div>
+          <div class="step">
+            <span class="step-num">4</span>
+            <div class="step-text">
+              <strong>Klicka Load unpacked</strong>
+              Välj mappen <code>biz-reminder-extension/</code>
+            </div>
+          </div>
+        </div>
+
+        <div class="files">
+          <h3>Filer</h3>
+          <div class="file-item">
+            <span class="file-name">manifest.json</span>
+            <span class="file-desc">— konfiguration &amp; permissions</span>
+          </div>
+          <div class="file-item">
+            <span class="file-name">background.js</span>
+            <span class="file-desc">— service worker, alarm &amp; notiser</span>
+          </div>
+          <div class="file-item">
+            <span class="file-name">popup.html</span>
+            <span class="file-desc">— popup-gränssnitt</span>
+          </div>
+          <div class="file-item">
+            <span class="file-name">popup.js</span>
+            <span class="file-desc">— popup-logik</span>
+          </div>
+          <div class="file-item">
+            <span class="file-name">icon.png</span>
+            <span class="file-desc">— ikon 128×128</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

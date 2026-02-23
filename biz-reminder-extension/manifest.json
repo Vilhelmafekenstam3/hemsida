@@ -3,7 +3,7 @@
   "name": "BizReminder: Tax & Law Alerts",
   "version": "1.0",
   "description": "Never miss a tax deadline or new regulation again.",
-  "permissions": ["notifications", "alarms", "tabs"],
+  "permissions": ["notifications", "alarms", "tabs", "storage"],
   "action": {
     "default_popup": "popup.html",
     "default_icon": "icon.png"
